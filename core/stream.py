@@ -58,29 +58,42 @@ async def skip_stream(song: Song, lang):
         get_quality(song),
     )
     await set_title(chat.id, song.title, client=app)
-    thumb = await generate_cover(
-        song.title,
-        chat.title,
-        chat.id,
-        song.thumb,
-    )
-    safone[chat.id] = await song.request_msg.reply_photo(
-        photo=thumb,
-        caption=lang["playing"]
-        % (
+    if song.thumb:
+        thumb = await generate_cover(
             song.title,
-            song.source,
-            song.duration,
-            song.request_msg.chat.id,
-            song.requested_by.mention
-            if song.requested_by
-            else song.request_msg.sender_chat.title,
-        ),
-        quote=False,
-    )
-    await infomsg.delete()
-    if os.path.exists(thumb):
-        os.remove(thumb)
+            chat.title,
+            chat.id,
+            song.thumb,
+        )
+        safone[chat.id] = await song.request_msg.reply_photo(
+            photo=thumb,
+            caption=lang["playing"]
+            % (
+                song.title,
+                song.source,
+                song.duration,
+                song.request_msg.chat.id,
+                song.requested_by.mention
+                if song.requested_by
+                else song.request_msg.sender_chat.title,
+            ),
+            quote=False,
+        )
+        await infomsg.delete()
+        if os.path.exists(thumb):
+            os.remove(thumb)
+    else:
+        safone[chat.id] = await song.request_msg.reply_text(text=lang["playing"]
+            % (
+                song.title,
+                song.source,
+                song.duration,
+                song.request_msg.chat.id,
+                song.requested_by.mention
+                if song.requested_by
+                else song.request_msg.sender_chat.title,
+            ), quote=False)
+        await infomsg.delete()
 
 
 async def start_stream(song: Song, lang):
@@ -110,30 +123,42 @@ async def start_stream(song: Song, lang):
         )
         return await start_stream(song, lang)
     await set_title(chat.id, song.title, client=app)
-    thumb = await generate_cover(
-        song.title,
-        chat.title,
-        chat.id,
-        song.thumb,
-    )
-    safone[chat.id] = await song.request_msg.reply_photo(
-        photo=thumb,
-        caption=lang["playing"]
-        % (
+    if song.thumb:
+        thumb = await generate_cover(
             song.title,
-            song.source,
-            song.duration,
-            song.request_msg.chat.id,
-            song.requested_by.mention
-            if song.requested_by
-            else song.request_msg.sender_chat.title,
-        ),
-        quote=False,
-    )
-    await infomsg.delete()
-    if os.path.exists(thumb):
-        os.remove(thumb)
-
+            chat.title,
+            chat.id,
+            song.thumb,
+        )
+        safone[chat.id] = await song.request_msg.reply_photo(
+            photo=thumb,
+            caption=lang["playing"]
+            % (
+                song.title,
+                song.source,
+                song.duration,
+                song.request_msg.chat.id,
+                song.requested_by.mention
+                if song.requested_by
+                else song.request_msg.sender_chat.title,
+            ),
+            quote=False,
+        )
+        await infomsg.delete()
+        if os.path.exists(thumb):
+            os.remove(thumb)
+    else:
+        safone[chat.id] = await song.request_msg.reply_text(text=lang["playing"]
+            % (
+                song.title,
+                song.source,
+                song.duration,
+                song.request_msg.chat.id,
+                song.requested_by.mention
+                if song.requested_by
+                else song.request_msg.sender_chat.title,
+            ), quote=False)
+        await infomsg.delete()
 
 def get_quality(song: Song) -> Union[AudioPiped, AudioVideoPiped]:
     group = get_group(song.request_msg.chat.id)

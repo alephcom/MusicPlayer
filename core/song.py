@@ -24,6 +24,7 @@ from datetime import timedelta
 from aiohttp import ClientSession
 from pyrogram.types import User, Message
 from typing import Dict, Tuple, Union, Optional
+from config import config
 
 
 class Song:
@@ -44,7 +45,10 @@ class Song:
             self._retries: int = 0
             self.duration: str = "N/A"
             self.headers: dict = None
-            self.thumb: str = "https://telegra.ph/file/820cac7cb7b1a025542e2.jpg"
+            if config.SONG_THUMBNAIL_IMAGE:
+                self.thumb: str = config.SONG_THUMBNAIL_IMAGE
+            else:
+                self.thumb: str = None
             for key, value in link.items():
                 setattr(self, key, value)
             self.request_msg: Message = request_msg

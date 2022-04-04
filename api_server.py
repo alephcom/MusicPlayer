@@ -2,10 +2,11 @@
 # please make sure BOT TOKEN is set in configuration(.env file)
 
 from core import app
+from config import config
 from pytgcalls import CustomApi
 from pytgcalls import idle
 
-apiserver = CustomApi()
+apiserver = CustomApi(config.API_SERVER_PORT)
 
 @apiserver.on_update_custom_api()
 async def handler(request: dict):

@@ -8,4 +8,5 @@ tgcrypto
 python-dotenv
 py-tgcalls==0.8.2
 youtube-search-python
+python-json-logger
 git+https://github.com/asmsafone/downloader

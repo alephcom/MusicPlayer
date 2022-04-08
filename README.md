@@ -128,6 +128,14 @@ Command | Description
 • !stop / !leave | Leave from vc and clear the queue
 • !update / !restart | Update and restart your music player
 
+## <a name="remotecontrol"></a>Remote Control
+This bot can be controlled by HTTP Posts.  The API server will start automatically. You can set API Server Port in env file (default is 24859).
+
+Sample API request:
+
+``` curl -d '{"chat_id" : -1001658474630,"message" : "!stream https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"}' -H 'Content-Type: application/json' -X POST http://localhost:24859```
+
+
 ## 🗣 <a name="languages"></a>Languages
 
 ```text

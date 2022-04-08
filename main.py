@@ -33,6 +33,8 @@ from core import (
     check_yt_url, extract_args, start_stream, shuffle_queue, delete_messages,
     get_spotify_playlist, get_youtube_playlist)
 
+import api_server
+
 
 REPO = """
 🤖 **Music Player**

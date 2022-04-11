@@ -32,6 +32,7 @@ from pytgcalls.exceptions import GroupCallNotFound, NoActiveGroupCall
 from pytgcalls.types.input_stream.quality import (
     LowQualityAudio, LowQualityVideo, HighQualityAudio, HighQualityVideo,
     MediumQualityAudio, MediumQualityVideo)
+from core.logger import log_stream_actions
 
 
 safone = {}
@@ -46,6 +47,8 @@ pytgcalls = PyTgCalls(app)
 
 
 async def skip_stream(song: Song, lang):
+    log_stream_actions(song, 'skip_stream')
+
     chat = song.request_msg.chat
     if safone.get(chat.id) is not None:
         try:
@@ -97,6 +100,8 @@ async def skip_stream(song: Song, lang):
 
 
 async def start_stream(song: Song, lang):
+    log_stream_actions(song, 'start_stream')
+    
     chat = song.request_msg.chat
     if safone.get(chat.id) is not None:
         try:

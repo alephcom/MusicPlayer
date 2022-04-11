@@ -47,6 +47,7 @@ class Config:
         self.ADMINS_ONLY: bool = os.environ.get("ADMINS_ONLY", False)
         self.SPOTIFY_CLIENT_ID: str = os.environ.get("SPOTIFY_CLIENT_ID", None)
         self.SPOTIFY_CLIENT_SECRET: str = os.environ.get("SPOTIFY_CLIENT_SECRET", None)
+        self.ENABLE_LOG: bool = os.getenv("ENABLE_LOG", 'False').lower() in ('true', '1', 't')
         self.SONG_THUMBNAIL_IMAGE: str = os.environ.get("SONG_THUMBNAIL_IMAGE", None)
         self.API_SERVER_PORT: int = int(os.environ.get("API_SERVER_PORT", 24859))
 

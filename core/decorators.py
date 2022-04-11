@@ -29,10 +29,13 @@ from pytgcalls.types import Update
 from typing import Union, Callable
 from pyrogram.errors import UserAlreadyParticipant
 from core.groups import get_group, all_groups, set_default
+from core.logger import log_bot_requests
 
 
 def register(func: Callable) -> Callable:
     async def decorator(client: Client, message: Message, *args):
+        # logging message
+        log_bot_requests(message)
         if message.chat.id not in all_groups():
             set_default(message.chat.id)
         return await func(client, message, *args)

@@ -50,6 +50,8 @@ class Config:
         self.ENABLE_LOG: bool = os.getenv("ENABLE_LOG", 'False').lower() in ('true', '1', 't')
         self.SONG_THUMBNAIL_IMAGE: str = os.environ.get("SONG_THUMBNAIL_IMAGE", None)
         self.API_SERVER_PORT: int = int(os.environ.get("API_SERVER_PORT", 24859))
+        self.LOOK_UP_ENDPOINT: str = os.environ.get("LOOK_UP_ENDPOINT", None)
+        self.LOOK_UP_PREFIX: str = os.environ.get("LOOK_UP_PREFIX", None)
 
 
 config = Config()

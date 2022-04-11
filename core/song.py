@@ -18,6 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>
 
 import json
 import asyncio
+import requests
 from shlex import quote
 from subprocess import PIPE
 from datetime import timedelta
@@ -53,6 +54,8 @@ class Song:
                 setattr(self, key, value)
             self.request_msg: Message = request_msg
             self.requested_by: User = request_msg.from_user
+        
+        self.look_up_source()
 
     async def parse(self) -> Tuple[bool, str]:
         if self.parsed:
@@ -112,3 +115,30 @@ class Song:
 
     def to_dict(self) -> Dict[str, str]:
         return {"title": self.title, "source": self.source}
+    
+    def look_up_source(self):
+        """ 
+            Check if source URL matches with LOOKUP configuration
+            and return the exact source URL
+
+            Example:
+                LTC:9235230 -> "https://us-mo-kansascity-1.listentochurch.com:8443/5293803.mp3"
+        """
+        try:
+            if (not config.LOOK_UP_ENDPOINT) or (not config.LOOK_UP_PREFIX):
+                return False
+
+            if not f'{config.LOOK_UP_PREFIX}:' in self.source:
+                return False
+            
+            res = requests.get(f'{config.LOOK_UP_ENDPOINT}{self.source}').json()
+            if res['status'] == True:
+                self.source = self.remote = res['url']
+        except:
+            return False
+
+        
+
+
+
+

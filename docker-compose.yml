@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+
+  musicplayer:
+    image: registry.digitalocean.com/aleph/musicplayer:latest
+    container_name: musicplayer
+    restart: always
+    network_mode: host
+    #environment:
+      #ICECAST_HOST: ${ICECAST_HOST}
+      #ICECAST_TYPE: ${ICECAST_TYPE}
+      #LTC_SSL_CERTIFICATE: ${LTC_SSL_CERTIFICATE}
+    expose:
+      - 24859:24859
+    ports:
+      - 24859:24859
+    volumes:
+      - /opt/tg/.env:/MusicPlayer/.env
+#      - /path/to/your/fullchain.pem:/usr/local/share/icecast2/fullchain.pem

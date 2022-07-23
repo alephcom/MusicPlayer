@@ -12,6 +12,7 @@ RUN cd /
 RUN pip3 install --upgrade pip
 RUN pip3 install -U -r requirements.txt
 RUN mkdir /MusicPlayer
+RUN mkdir /MusicPlayer/logs
 WORKDIR /MusicPlayer
 COPY startup.sh /startup.sh
 

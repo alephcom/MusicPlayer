@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo ">> FETCHING UPSTREAM..."
 git clone https://github.com/alephcom/MusicPlayer /MusicPlayer
 echo ">> INSTALLING REQUIREMENTS..."
